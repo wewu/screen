@@ -1,0 +1,29 @@
+<% hlib = HtmlLib.new %>
+<%= link_to "Back", :controller => "upload", :action => 'upload_multiple_link_onclick' %>
+<%= hlib.show_page_head("Name Convention for Data Files") %>
+
+<% fname_conv = "experimentname_replicatenum_libname_platename_description_yyyymmdd.txt" %>
+
+<form>
+   <b><font color=blue><%=fname_conv%></font></b><br><br>
+   <table>
+      <%= hlib.text_row("<b>expermentname:</b> experiment name, any text or numbers, no _ (underscore). Use same experiment name for its replicates.") %>
+      <%= hlib.text_row("<b>replicatenum:</b> replicate, any positive number (>=1)") %>
+   </table>
+
+   <table>
+      <% arrp = hlib.form_db_plate_list_2(@dbplatenamearr) %>
+      <tr>
+         <%= hlib.text_col("<b>libname_platename:</b> should appear in the list.") %>
+         <td></td>
+         <td><%= select_tag 'list_piddname', options_for_select(arrp), {:multiple => false, :size => 10} %></td>
+      </tr>
+   </table>
+
+   <table>
+      <%= hlib.text_row("<b>description:</b> condition description, any text or numbers, but no special charactes such as _ @ $ # space, etc") %>
+      <%= hlib.text_row("<b>yyyymmdd:</b> date format") %>
+   </table>
+</form>
+
+<hr width=100%, align="left">

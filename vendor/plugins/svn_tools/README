@@ -1,0 +1,13 @@
+SVN Tools is a Rake plugin designed to make the common tasks under Rails more easy. The main things you might want to try are
+
+rake svn:add
+rake svn:del
+# these two are just wrappers for some fancy sed stuff I got from the internets.
+
+rake svn:commit
+# this one takes your commit message at a prompt -- but it only take one line messages, yeah, just a gets.
+
+rake svn:bootstrap
+# this is the one I really wrote all this for. Run it on a brand new project to get things imported into a repository properly. It sets svn:ignore in the proper places, like log, tmp, and database.yml
+
+questions, commments: jchris@mfdz.com

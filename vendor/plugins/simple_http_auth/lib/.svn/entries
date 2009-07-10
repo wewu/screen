@@ -1,0 +1,40 @@
+8
+
+dir
+13
+http://svn.codahale.com/simple_http_auth/lib
+http://svn.codahale.com/simple_http_auth
+
+
+
+2006-10-08T20:11:37.740564Z
+13
+coda
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+ab2ce51f-6613-0410-97dc-f33f09fd5bc1
+
+simple_http_auth.rb
+file
+
+
+
+
+2007-11-14T15:35:27.000000Z
+2ca2a8074a57e885d4845de1403a74a3
+2006-10-08T20:11:37.740564Z
+13
+coda
+

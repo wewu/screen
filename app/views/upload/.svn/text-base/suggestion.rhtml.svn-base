@@ -1,0 +1,18 @@
+<% hlib = HtmlLib.new %>
+<%= link_to "Back", :controller => "upload", :action => 'main' %>
+<%= hlib.show_page_head("Suggestions") %>
+
+<form>
+   <b> Report problems or give us suggestions using either way. </b>
+       Please mention "Screen Project" in the title. <br>
+   <dl>
+   <dd>
+      <li> Submit online: <a href=https://bioinf.itmat.upenn.edu/fogbugz/default.php?pg=pgEditBug&command=new>click here</a>. <br>
+      or <br>
+      <li> Email: <b>cases@itmat.upenn.edu</b>
+   </dd>
+   </dl>
+
+</form>
+
+<hr width=100%, align="left">

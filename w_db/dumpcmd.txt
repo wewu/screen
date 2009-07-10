@@ -1,0 +1,17 @@
+mysqldump -u ibfrw -pibfrw screen > screen.sql
+mysql -h db -u ibfdba -pft42as12 screen < screen.sql
+
+login as ibfdba/ft42as12
+
+drop database screen;
+grant all privileges on screen.* to 'screen'@'localhost' identified by "s9876creen";
+grant all privileges on screen.* to 'screen'@'wasabi.itmat.upenn.int' identified by "s9876creen";
+create database screen;
+
+#test
+use screen;
+create table assay (assay_id integer);
+insert into assay values (1);
+drop table assay;
+
+

@@ -1,0 +1,107 @@
+<% hlib = HtmlLib.new %>
+<% alib = ApplicationLib.new %>
+<% slib = SqlLib.new %>
+<% salib = SqlAssayLib.new %>
+
+<%= link_to "Back", :controller => "assay", :action => 'goto_select_page', 
+                                            :func => @func, 
+                                            :title => @title
+                                           %>
+<%= hlib.show_page_head(@title) %>
+
+
+<form action='<%= url_for(:action => "update_plate_button_onclick",
+                          :func => @func, 
+                          :title => @title,
+                          :aname => @aname,  
+                          :machine => @machine) %>'
+                          method='POST' enctype="multipart/form-data">
+<table>
+   <tr>
+      <%= hlib.text_col("Experiment:") %>
+      <%= hlib.textb_col(@aname) %>
+   </tr>
+</table><br>
+   
+<table>
+   <tr>
+      <%= hlib.text_col("Library:") %>
+      <td><%= select_tag 'list_lib', options_for_select(@libname_arr, @cur_libname), {:multiple => false, :size => 1} %></td>
+      <td><%= hlib.submit_button("Update Plate List")%></td>
+    </tr>
+</table>
+</form>
+
+
+<form action='<%= url_for(:action => "assign_button_onclick",
+                          :func => @func, 
+                          :title => @title,
+                          :aname => @aname, 
+                          :machine => @machine, 
+                          :aidstr_list => @aidstr_list,
+                          :cur_libname =>@cur_libname) %>'  
+                          method='POST' enctype="multipart/form-data">
+<% today_date = alib.get_today_date() %>
+<table border=1>
+   <tr>
+      <%= hlib.textb_col("Raw Plate Id:") %>
+      <%= hlib.textb_col("Plate:") %>
+      <%= hlib.textb_col("Replicate:") %>
+      <%= hlib.textb_col("Pathway:") %>
+      <%= hlib.textb_col("Date:") %>
+      <%= hlib.textb_col("Description:") %>
+      <%= hlib.textb_col("Protocol:") %>
+
+      <% if (@machine == "1") %>
+         <td></td>
+         <%= hlib.textb_col("machine parameters") %>
+         <% for paramname in @paramname_arr %>
+            <%= hlib.textb_col(paramname) %>
+         <% end %>
+      <% end %>
+   </tr>
+   
+   <% aidarr = @aidstr_list.split("_") %>
+   <% for aid1 in aidarr %>
+      <% aid = aid1.to_s %>
+      <% rawplateid = slib.sql_get_1str("assay_feature", "value", "assay_id = " + aid + " and name = 'plate_id'") %>
+      <tr>
+         <% if (@assigned == 0) %>
+            <%= hlib.text_col(rawplateid.to_s) %>
+            <td><%= select_tag 'list_plate_'+ aid, options_for_select(@platename_arr), {:multiple => false, :size => 1} %></td>
+            <td><%= select_tag 'list_rep_'+aid, options_for_select(@replicate_arr), {:multiple => false, :size => 1} %></td>
+            <td><%= select_tag 'list_pw_'+aid, options_for_select(@pathway_arr), {:multiple => false, :size => 1} %></td>
+            <%= hlib.tbox_col("tbox_date_"+aid, today_date, 10) %>
+            <%= hlib.tbox_col("tbox_des_"+aid, "", 30) %>
+            <%= hlib.tarea_col("tbox_prot_"+aid, 1, 30) %>
+         <% else %>
+            <%  ass_rec = salib.select_by_aidstr(aid) %>
+            <%= hlib.text_col(rawplateid.to_s) %>
+            <%= hlib.text_col(ass_rec[0].plate_name) %>
+            <%= hlib.text_col(ass_rec[0].replicate.to_s) %>
+            <%= hlib.text_col(ass_rec[0].pathway_name) %>
+            <%= hlib.text_col(ass_rec[0].assay_date.to_s) %>
+            <%= hlib.text_col(ass_rec[0].assay_desc) %>
+            <%= hlib.tarea_col_readonly("tbox_prot_"+aid, 1, 30, ass_rec[0].protocol) %>
+         <% end %>
+                  
+         <% if (@machine == "1") %>
+            <td></td>
+            <td></td>
+            <% for paramname in @paramname_arr %>
+               <% val = slib.sql_get_1str("assay_feature", "value", "assay_id = " + aid + " and name = '" + paramname + "'") %>
+               <%= hlib.text_col(val) %>
+            <% end %>
+         <% end %>
+      </tr>
+   <% end %>
+</table><br>
+
+<% if ((@assigned == 0) && (aidarr.length > 0))%>
+   <%= hlib.submit_button("Assign")%>
+<% elsif (@assigned == 1) %>
+   <%= hlib.show_log("Assign Successfully")%>
+<% end %>
+</form>
+
+<hr width=100%, align="left">

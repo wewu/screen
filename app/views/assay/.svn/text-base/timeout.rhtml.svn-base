@@ -1,0 +1,12 @@
+<% hlib = HtmlLib.new %>
+
+<%= link_to "Back", :controller => "assay", :action => 'goto_select_page', 
+                                            :func => @func, 
+                                            :title => @title
+                                           %>
+
+<%= hlib.show_page_head("R program Time Out") %>
+
+  <b>No result because of some system problem. </b>
+
+<hr width=100%, align="left">

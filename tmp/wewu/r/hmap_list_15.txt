@@ -1,0 +1,2 @@
+Filename	Plate	Replicate
+hmap_data_15.txt	1	1

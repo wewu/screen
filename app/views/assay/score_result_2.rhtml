@@ -1,0 +1,56 @@
+<% hlib = HtmlLib.new %>
+<% rlib = RLib.new %>
+<% alib = ApplicationLib.new %>
+
+<%= link_to "Back", :controller => "assay", :action => 'goto_result_page', 
+                                        :func => @func,
+                                        :title => @title, 
+                                        :aidstr_list => @aidstr_list,
+                                        :aidstr_sel  => @aidstr_sel,
+                                        :cutoff => @cutoff,
+                                        :outfname => @outfname %>
+<%= hlib.show_page_head(@subtitle, session[:cas_user]) %>
+
+<form>
+   <%= hlib.show_cutoff(@cutoff) %>
+
+
+   <% for i in @idxarr %>
+       <% 
+       arrdatan = rlib.read_out_one(@arrdata, i)
+       
+       aid = rlib.get_aid(arrdatan)
+       error = rlib.get_error(arrdatan)
+       scorearr = rlib.get_score_table(arrdatan)  %>
+
+       <% if (alib.is_nil(error))  %>
+           <% if (@subfunc == "ann") %>
+               <%  
+               lpath = alib.get_localpath(session[:cas_user], "r")
+               fshortname = "annotation_" + aid.to_s[0,50] + ".xls"
+               #fshortname = "annotation_" + aid.to_s + ".xls"
+               fname = lpath + fshortname                         
+               %>
+               <%=link_to "Download (xls)", :action => "send_annotation_file", :fname => fname %><br><br>
+
+               <%= hlib.show_ann_table(@func, aid, scorearr, @cutoff, fname) %>
+               
+           <% elsif (@subfunc == "score") %>
+               <%= hlib.show_score_table(@func, aid, scorearr, "2_"+@cutoff.to_s) %><br><br>
+
+           <% elsif (@subfunc == "hmap") %>
+               <%= hlib.show_table_head(aid) %>
+
+               <%= image_tag(rlib.get_pic(@func, "hmap", aid))  %>
+               <% fname_hmap = rlib.get_pdf(session[:cas_user], @func, "hmap", aid) %><br>
+               <%= link_to "Large Heatmap (pdf)",  :action => "send_image_file", :fname => fname_hmap %><br><br>
+
+           <% end %>
+       <% else  %>
+          <%= hlib.show_table_head(aid) %>
+          <%= hlib.show_error(error) %>
+       <% end  %>
+   <% end %>
+</form> 
+
+<hr width=100%, align="left">

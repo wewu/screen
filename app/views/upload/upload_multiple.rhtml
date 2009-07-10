@@ -1,0 +1,53 @@
+<% hlib = HtmlLib.new %>
+<%= link_to "Back", :action => 'main' %>
+<%= hlib.show_page_head(@title, session[:cas_user]) %>
+
+<% fname_conv = "experimentname_replicatenum_libname_platename_description_yyyymmdd.txt" %>
+
+<form action='<%= url_for(:action => "upload_multiple_button_onclick",
+                          :func => @func, 
+                          :title => @title) %>'  
+                          method='POST' enctype="multipart/form-data">
+
+<%= hlib.show_text("Requirements:") %>
+<table>
+   <tr>
+      <%= hlib.text_col("1. ") %>
+      <%= hlib.text_col("Data file is one of the four formats: ") %>
+      <td></td>
+      <td> <i><%=link_to "A", :action => "show_examplefile_link_onclick", :id=>"a" %></font></i>,
+           <i><%=link_to "B", :action => "show_examplefile_link_onclick", :id=>"b" %></font></i>,
+           <i><%=link_to "C", :action => "show_examplefile_link_onclick", :id=>"c" %></font></i>,
+           <i><%=link_to "D", :action => "show_examplefile_link_onclick", :id=>"d" %></font></i>
+       </td>
+   </tr>
+   
+   <tr>           
+      <%= hlib.text_col("2. ") %>
+      <%= hlib.text_col("Data file name follows the convention:") %>
+      <td></td>
+      <td> <i><%=link_to fname_conv, :action => "convention_link_onclick" %> </i></td>
+   </tr>
+   
+   <tr>           
+      <%= hlib.text_col("3. ") %>
+      <%= hlib.text_col("Zip the multiple data files to a single file:") %>
+      <td></td>
+      <%= hlib.text_col("use Winzip or tar+gzip") %>
+   </tr>
+</table><br>
+
+<table>
+   <%= hlib.textb_row("Specify a zipped file:") %>
+   <%= hlib.fbox_row("tbox_zipfile", "", 60) %>
+   <%= hlib.textb_row("Enter the Protocol text:") %>
+   <%= hlib.tarea_row("tbox_protfile", 10, 60) %>
+<table>
+
+<%= hlib.submit_button("Upload")%>
+</form>
+
+<%= hlib.show_log($log)%>
+
+<% #hlib.examplefile_table(@arrformat) %>
+<hr width=100%, align="left">

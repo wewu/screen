@@ -1,0 +1,28 @@
+<% hlib = HtmlLib.new %>
+<%= link_to "Back", :action => 'main' %>
+<%= hlib.show_page_head(@title, session[:cas_user]) %>
+
+<form action='<%= url_for(:action => "upload_data_button_onclick",
+                          :func => @func, 
+                          :title => @title) %>'  
+                          method='POST' enctype="multipart/form-data">
+<table>
+   <%= hlib.textbc_row("Experiment name:", "texts or numbers") %>
+   <%= hlib.tbox_row("tbox_aname", "", 50) %>
+</table>   
+<table>
+   <tr>
+      <%= hlib.textb_col("Specify a text file: (See sample text file: ") %>
+      <td> <i><%=link_to "E", :action => "show_examplefile_link_onclick", :id=>"e" %></font></i></td>
+      <%= hlib.textb_col(")") %>
+   </tr>
+</table>   
+<table>
+   <%= hlib.fbox_row("tbox_datfile", "", 60) %>
+<table>
+
+<%= hlib.submit_button("Upload")%>
+</form>
+
+<%= hlib.show_log($log)%>
+<hr width=100%, align="left">

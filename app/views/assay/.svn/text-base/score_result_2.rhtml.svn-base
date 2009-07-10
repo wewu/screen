@@ -1,0 +1,49 @@
+<% hlib = HtmlLib.new %>
+<% rlib = RLib.new %>
+<% alib = ApplicationLib.new %>
+
+<%= link_to "Back", :controller => "assay", :action => 'goto_result_page', 
+                                        :func => @func,
+                                        :title => @title, 
+                                        :aidstr_list => @aidstr_list,
+                                        :aidstr_sel  => @aidstr_sel,
+                                        :cutoff => @cutoff,
+                                        :outfname => @outfname %>
+<%= hlib.show_page_head(@subtitle) %>
+
+<form>
+   <%= hlib.show_cutoff(@cutoff) %>
+
+   <% for i in @idxarr %>
+       <% 
+       arrdatan = rlib.read_out_n(@arrdata, i)
+       aidarr_str = rlib.get_aid(arrdatan)
+       error = rlib.get_error(arrdatan)
+       scorearr = rlib.get_score_table(arrdatan)  %>
+
+       <% if (alib.is_nil(error))  %>
+           <% if (@subfunc == "ann") %>
+               <%= hlib.show_ann_table(@func, aidarr_str, scorearr, @cutoff) %>
+           
+           <% elsif (@subfunc == "score") %>
+               <%= hlib.show_score_table(@func, aidarr_str, scorearr, "2_"+@cutoff.to_s) %><br><br>
+
+           <% elsif (@subfunc == "hmap") %>
+               <%= hlib.show_table_head(aidarr_str) %>
+
+               <% if ($genv == "development") %>
+                   <%= image_tag(rlib.get_pic(@func, "hmap", aidarr_str))  %>
+               <% else %>               
+                   <% fname_hmap = rlib.get_pdf(@func, "hmap", aidarr_str) %>
+                   <%= link_to "Heatmap",  :action => "send_image_file", :fname => fname_hmap %>
+               <% end %><br>	
+
+           <% end %>
+       <% else  %>
+          <%= hlib.show_table_head(aidarr_str) %>
+          <%= hlib.show_error(error) %>
+       <% end  %>
+   <% end %>
+</form> 
+
+<hr width=100%, align="left">

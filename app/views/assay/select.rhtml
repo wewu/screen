@@ -1,0 +1,50 @@
+<% hlib = HtmlLib.new %>
+<% alib = ApplicationLib.new %>
+<% funcgrp = alib.get_func_group(@func) %>
+
+<%= link_to "Back", :controller => "upload", :action => 'main' %>
+<%= hlib.show_page_head(@title + ": Select Experiment", session[:cas_user]) %>
+
+<form action='<%= url_for(:action => "select_button_onclick", 
+                                         :func => @func, 
+                                         :title => @title,
+                                         :share => @share) %>' method='POST'>
+                                         
+<b>Select from each list (* means any)</b><br><br>
+<table>
+    <tr>
+      <%= hlib.textb_col("Experiment") %>  <td>&nbsp;&nbsp;&nbsp;</td>
+      <% if (@func != "assign") %>
+         <%= hlib.textb_col("Library ") %>    <td>&nbsp;&nbsp;&nbsp;</td>
+         <%= hlib.textb_col("Pathway ") %>    <td>&nbsp;&nbsp;&nbsp;</td>
+         <%= hlib.textb_col("Description ") %><td>&nbsp;&nbsp;&nbsp;</td>
+         <%= hlib.textb_col("Date ") %>       <td>&nbsp;&nbsp;&nbsp;</td>
+      <% end %>
+   </tr>
+ 
+   <tr>
+      <td> <%= select_tag 'list_aname',  options_for_select(@anamearr, @anamearr[0]),  {:multiple => false, :size => 15 } %> </td>   <td>&nbsp;&nbsp;&nbsp;</td>
+      <% if (@func != "assign") %>
+         <td> <%= select_tag 'list_dname',  options_for_select(@dnamearr, @dnamearr[0]),  {:multiple => false, :size => 15 } %> </td>   <td>&nbsp;&nbsp;&nbsp;</td>
+         <td> <%= select_tag 'list_pwname', options_for_select(@pwnamearr,@pwnamearr[0]), {:multiple => false, :size => 15 } %> </td>   <td>&nbsp;&nbsp;&nbsp;</td>
+         <td> <%= select_tag 'list_desc',   options_for_select(@descarr,  @descarr[0]),   {:multiple => false, :size => 15 } %> </td>   <td>&nbsp;&nbsp;&nbsp;</td>
+         <td> <%= select_tag 'list_date',   options_for_select(@datearr,  @datearr[0]),   {:multiple => false, :size => 15 } %> </td>   <td>&nbsp;&nbsp;&nbsp;</td>
+      <% end %>
+   </tr>
+</table><br>
+
+<% if ((@func == "share") || (@func == "delete") || (@func == "qualctrl")) %>
+   <%= %>
+<% elsif  (@func == "assign") %>
+   <table>
+       <tr>
+          <%= hlib.cbox_col("cbox_machine", "1") %>
+          <%= hlib.textb_col("Show experiment instrument parameters: ") %>
+       </tr>
+   </table><br>
+<% end %>
+
+<%= hlib.submit_button("Select") %>
+</form>
+
+<hr width=100%, align="left">

@@ -1,0 +1,18 @@
+---
+:daemon: true
+:debug: false
+:cwd: /opt/www/rails_apps/screen
+:includes:
+- mongrel
+:log_file: /opt/www/rails_apps/screen/log/screen.log
+:config_script:
+:num_processors: 1024
+:docroot: public
+:environment: production
+:group: apache
+:user: wewu
+:host: 0.0.0.0
+:timeout: 0
+:mime_map:
+:prefix: /screen
+:port: "8003"

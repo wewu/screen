@@ -1,0 +1,14 @@
+
+
+<html>
+<head>
+  <title>Screen Project </title>
+  <%= javascript_include_tag "prototype" %>
+</head>
+<body>
+
+
+<%= yield  %>
+
+</body>
+</html>

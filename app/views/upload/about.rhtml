@@ -1,0 +1,18 @@
+<% hlib = HtmlLib.new %>
+<%= link_to "Back", :controller => "upload", :action => 'main' %>
+<%= hlib.show_page_head("About", session[:cas_user]) %>
+
+<form>
+   <b>
+      The Screen project is used to store and analyze
+      the data from cell-based high-throughput RNAi screens.
+   </b><br><br>
+   
+   
+   The analysis methods are based on cellHTS package: <br>
+   Boutros, M., L. Bras, and W. Huber. (2006). Analysis of cell-based RNAi screens. <i>Genome Biology</i> 7:R66. 
+   <a href="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?db=pubmed&cmd=Retrieve&dopt=AbstractPlus&list_uids=16869968" title="pdf" target="_parent">[Pubmed]</a>
+
+</form>
+
+<hr width=100%, align="left">

@@ -1,0 +1,12 @@
+<% @@hlib = HtmlLib.new %>
+<%= link_to "Back", :controller => "assay", :action => 'goto_list_page', 
+                                            :func => @func, 
+                                            :title => @title,
+                                            :aidstr_list=> @aidstr_list
+                                           %>
+
+<%= @@hlib.show_page_head("Protocol Content for Assay ID=" + @aid, session[:cas_user]) %>
+
+<%= @prot %>
+
+<hr width=100%, align="left">

@@ -1,0 +1,65 @@
+<% hlib = HtmlLib.new %>
+<% alib = ApplicationLib.new %>
+
+<%= link_to "Back", :action => 'main' %>
+<%= hlib.show_page_head(@title) %>
+
+<form action='<%= url_for(:action => "upload_single_button_onclick",
+                          :func => @func, 
+                          :title => @title) %>'  
+                          method='POST' enctype="multipart/form-data">
+
+
+<%= hlib.show_text("Requirements:") %>
+<table>
+   <tr>
+      <%= hlib.text_col("1. ") %>
+      <%= hlib.text_col("Data file is one of the four formats: ") %>
+      <td></td>
+      <td> <i><%=link_to "A", :action => "show_examplefile_link_onclick", :id=>1 %></font></i>,
+           <i><%=link_to "B", :action => "show_examplefile_link_onclick", :id=>2 %></font></i>,
+           <i><%=link_to "C", :action => "show_examplefile_link_onclick", :id=>3 %></font></i>,
+           <i><%=link_to "D", :action => "show_examplefile_link_onclick", :id=>4 %></font></i>
+       </td>
+   </tr>
+</table><br>
+
+<table>
+   <%= hlib.textbc_row("Experiment name:", "texts or numbers. Use same name for its replicates.") %>
+   <%= hlib.tbox_row("tbox_aname", $curaname, 50) %>
+   <%= hlib.textb_row("Specify a data file:") %>
+   <%= hlib.fbox_row("tbox_datafile", "", 50) %>
+</table>
+
+<table>
+   <tr>
+     <%= hlib.textb_col("Replicate:") %>    <td>&nbsp;&nbsp;&nbsp;</td>
+     <%= hlib.textb_col("Library_Plate") %> <td>&nbsp;&nbsp;&nbsp;</td>
+     <%= hlib.textb_col("Pathway:") %>      <td>&nbsp;&nbsp;&nbsp;</td>
+     <%= hlib.textb_col("Protocol: ") %>    <td>&nbsp;&nbsp;&nbsp;</td>
+  </tr>
+ 
+  <% arrp = hlib.form_db_plate_list(@dbplatenamearr) %>
+  <% repliarr = alib.new_arr10("1","2","3","4","5","6","7","8","9","10") %>
+  <tr>
+     <td><%= select_tag 'list_repli', options_for_select(repliarr, $currepli), {:multiple => false, :size => 10} %></td>         <td>&nbsp;&nbsp;&nbsp;</td>
+     <td><%= select_tag 'list_piddname', options_for_select(arrp, $curpiddname), {:multiple => false, :size => 10} %></td>       <td>&nbsp;&nbsp;&nbsp;</td>
+     <td><%= select_tag 'list_pwname', options_for_select(@pathwaynamearr, $curpwname), {:multiple => false, :size => 10} %></td><td>&nbsp;&nbsp;&nbsp;</td>
+     <%= hlib.tarea_col("tbox_protfile", 10, 20) %>
+ </tr>
+</table>
+
+<table>
+   <%= hlib.textbc_row("*Description:", "optional. e.g. experimental settings, condition descriptions") %>
+   <%= hlib.tbox_row("tbox_adesc", $curadesc, 50) %>
+   <%= hlib.textbc_row("*Date: yyyymmdd", "optional. e.g. experimental date. If blank, today's date will be used.") %>
+   <%= hlib.tbox_row("tbox_adate", $curadate, 10) %>
+</table>
+
+<%= hlib.submit_button("Upload")%>
+</form>
+
+<%= hlib.show_log($log)%>
+
+<% #hlib.examplefile_table(@arrformat) %>
+<hr width=100%, align="left">

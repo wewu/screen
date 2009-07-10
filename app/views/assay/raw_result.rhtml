@@ -1,0 +1,17 @@
+<% hlib = HtmlLib.new %>
+
+<%= link_to "Back", :controller => "assay", :action => 'goto_list_page', 
+                                            :func => @func, 
+                                            :title => @title,
+                                            :aidstr_list=> @aidstr_list
+                                           %>
+<%= hlib.show_page_head(@title, session[:cas_user]) %>
+<%  aidarr = @aidstr_sel.split("_") %>
+
+<form>
+   <% for aid in aidarr  %>
+      <%= hlib.show_rawvalue_table(@func, aid, "0") %><br><br>
+   <% end %>
+</form>
+
+<hr width=100%, align="left">

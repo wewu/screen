@@ -1,0 +1,13 @@
+development:
+  adapter: mysql
+  database: screen
+  username: ibfrw
+  password: ibfrw
+  host: localhost
+
+production:
+  adapter: mysql
+  database: screen
+  username: screen
+  password: s9876creen
+  host: db

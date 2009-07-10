@@ -1,0 +1,68 @@
+<% alib = ApplicationLib.new %>
+<% hlib = HtmlLib.new %>
+<% sarlib = SqlAssayresultLib.new %>
+<%= link_to "Back", :controller => "assay", :action => 'goto_select_page', 
+                                            :func => @func, 
+                                            :title => @title %>
+<%= hlib.show_page_head(@title + ": Select Replicate") %>
+
+<form action='<%= url_for(:action => "show_button_onclick", 
+                          :func => @func, 
+                          :title => @title,
+                          :aidstr_list => @aidstr_list,
+                          :aidstr_sel => @aidstr_sel,
+                          :cutoffstr => @cutoffstr ) %>' method='POST' enctype="multipart/form-data">
+
+<table border=1>
+  <% bgclr = hlib.get_bgcolor(2) %>
+  <tr bgcolor=<%=bgclr %> >
+     <%= hlib.textb_col("Select")%>
+     <%= hlib.assay_head_cols() %>
+     <%= hlib.textb_col("Protocol") %>
+  </tr>
+  
+  <% 
+  i = 0 
+  for a in @aarr_list 
+     bgclr = hlib.get_bgcolor(i%2) 
+     aid = a.assay_id.to_s 
+     %>
+     <tr bgcolor=<%=bgclr %> >
+        <%= hlib.show_check_box(@func, a) %>
+        <%= hlib.assay_rec_cols(a) %>
+        <% if alib.is_nil(a.protocol) %>
+           <%= hlib.text_col("") %>
+        <% else %>
+           <td><%= link_to "Content", :action=>"protocol_link_onclick", 
+                                      :func => @func, 
+                                      :title => @title,
+                                      :aidstr_list => @aidstr_list,
+                                      :aid=>aid, 
+                                      :prot=>a.protocol %> </td>
+        <% end %>
+    </tr>
+    <% i = i + 1 %>
+  <% end %>
+</table><br>
+
+
+<% if (i > 0) %>
+   <% funcgrp = alib.get_func_group(@func) %>
+   <% if (funcgrp == 3)  %>
+        <table>
+           <%= hlib.textb_row("Enter a cutoff value:") %>
+           <%= hlib.tbox_row("tbox_cutoff", "0", 10) %>
+        </table>
+  	<% end %>
+	
+	<% if (@func == "share") %>
+	    <%= hlib.submit_button("Share") %>
+	<% elsif (@func == "delete") %>
+	    <%= hlib.submit_button("Delete") %>
+	<% else %>
+	    <%= hlib.submit_button("Show") %>
+	<% end %>
+<% end %>
+</form>
+
+<hr width=100%, align="left">

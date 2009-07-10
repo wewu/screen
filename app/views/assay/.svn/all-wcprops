@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/repos/!svn/ver/1122/UPAT/RailsProjects/screen/trunk/app/views/assay
+END
+score_result_2.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/repos/!svn/ver/1121/UPAT/RailsProjects/screen/trunk/app/views/assay/score_result_2.rhtml
+END
+assay_list.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/repos/!svn/ver/1252/UPAT/RailsProjects/screen/trunk/app/views/assay/assay_list.rhtml
+END
+select.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/repos/!svn/ver/1268/UPAT/RailsProjects/screen/trunk/app/views/assay/select.rhtml
+END
+protocol.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/repos/!svn/ver/1043/UPAT/RailsProjects/screen/trunk/app/views/assay/protocol.rhtml
+END
+qualctrl_result.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/repos/!svn/ver/1117/UPAT/RailsProjects/screen/trunk/app/views/assay/qualctrl_result.rhtml
+END
+timeout.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/repos/!svn/ver/1268/UPAT/RailsProjects/screen/trunk/app/views/assay/timeout.rhtml
+END
+raw_result.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/repos/!svn/ver/1117/UPAT/RailsProjects/screen/trunk/app/views/assay/raw_result.rhtml
+END
+score_result.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/repos/!svn/ver/1252/UPAT/RailsProjects/screen/trunk/app/views/assay/score_result.rhtml
+END

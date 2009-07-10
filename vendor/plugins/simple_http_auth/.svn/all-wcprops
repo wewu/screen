@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 30
+/simple_http_auth/!svn/ver/13/
+END
+Rakefile
+K 25
+svn:wc:ra_dav:version-url
+V 37
+/simple_http_auth/!svn/ver/4/Rakefile
+END
+init.rb
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/simple_http_auth/!svn/ver/2/init.rb
+END
+MIT-LICENSE
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/simple_http_auth/!svn/ver/1/MIT-LICENSE
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/simple_http_auth/!svn/ver/8/README
+END

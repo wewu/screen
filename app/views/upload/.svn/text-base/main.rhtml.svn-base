@@ -1,0 +1,72 @@
+<% $guname = session[:cas_user] %>
+<% $genv = ENV['RAILS_ENV'] %>
+<% hlib = HtmlLib.new %>
+<% alib = ApplicationLib.new %>
+<% alib.init_dir($guname) %>
+
+<table>
+   <%= hlib.text_row("<h2>Screen Project</h2>") %>
+   <tr>
+      <%= hlib.textb_col("User: " + $guname) %>
+      <%= hlib.textb_col("&nbsp;&nbsp;&nbsp;")%>
+      <td><%= link_to "Logoff", :action => "logout" %> </td>
+   </tr>
+</table>
+<hr width=100%, align='left'>
+
+<b>Select a task:</b>
+<dl>
+   <dt><b>Upload</b></dt>
+   <dd>
+      <li><%= link_to "Upload multiple data files",  
+              :controller => "upload", :action => "goto_upload_page", :func => "uploadmul", :title => "Upload multiple files" %> 
+      <li><%= link_to 'Upload a single data file',   
+              :controller => "upload", :action => "goto_upload_page", :func => "uploadsin", :title => "Upload a single file" %> 
+      <li><%= link_to 'Upload multiple experiments in a data file',
+              :controller => "upload", :action => "goto_upload_page", :func => "uploaddat", :title => "Upload multiple experiments in a data file" %> 
+   </dd><br><br>
+
+   <dt><b>Manage Data</b></dt>
+   <dd>
+      <li><%= link_to 'Assign plate to uploaded experiments',
+              :controller => "assay", :action => "goto_select_page", :func => "assign", :title => "Assign plate to experiments" %> 
+      <li><%= link_to 'Show',  
+              :controller => "assay", :action => "goto_select_page", :func => "showraw", :title => "Show data" %>
+      <% link_to 'Download',  
+              :controller => "assay", :action => "goto_select_page", :func => "downloadraw", :title => "Download data" %>
+      <li><%= link_to 'Share',  
+              :controller => "assay", :action => "goto_select_page", :func => "share", :title => "Share data" %>
+      <li><%= link_to 'Delete',  
+              :controller => "assay", :action => "goto_select_page", :func => "delete", :title => "Delete" %>
+   </dd><br><br>
+ 
+   <dt><b>Quality Control</b></dt>
+   <dd>
+      <li><%= link_to 'Identify bad wells and control wells', 
+              :controller => "assay", :action => "goto_select_page", :func => "qualctrl", :title => "Identify bad and control wells" %>
+   </dd><br><br>
+
+   <dt><b>Analysis</b></dt>
+   <dd>
+      <li><%= link_to 'B score', 
+              :controller => "assay", :action => "goto_select_page", :func => "Bscore", :title => "B score" %>
+              (some explanation words)
+      <li><%= link_to 'Z score',
+              :controller => "assay", :action => "goto_select_page", :func => "zscore", :title => "Z score" %>
+      <li>Percent of control (by negative controls)
+      <dl>
+          <dd>
+             - <%= link_to 'Median normalization',
+                :controller => "assay", :action => "goto_select_page", :func => "negatives", :title => "POC by Median" %>
+          </dd>
+          <dd>
+             - <%= link_to 'Mean normalization',
+                :controller => "assay", :action => "goto_select_page", :func => "negmean", :title => "POC by Mean" %>
+          </dd>
+      </dl>
+   </dd>
+</dl>
+
+
+<hr width=100%, align="left">
+<%= hlib.show_project_foot() %>

@@ -1,0 +1,91 @@
+<% hlib = HtmlLib.new %>
+<% rlib = RLib.new %>
+<% alib = ApplicationLib.new %>
+<%= link_to "Back", :controller => "assay", :action => 'goto_select_page', 
+                                            :func => @func, 
+                                            :title => @title
+                                           %>
+<%= hlib.show_page_head(@title) %>
+
+<form>
+   <%= hlib.show_cutoff(@cutoff) %>
+   
+   <% for i in @idxarr %>
+      <% arrdatan = rlib.read_out_n(@arrdata, i) %>
+      <% aidarr_str = rlib.get_aid(arrdatan) %>
+      <% error = rlib.get_error(arrdatan) %>
+
+      <% if (alib.is_nil(error))  %>
+         <%  scorearr = rlib.get_score_table(arrdatan) %>
+         <%= hlib.show_score_table(@func, aidarr_str, scorearr, "2_"+@cutoff.to_s) %><br><br>
+
+          <% idxarr = rlib.get_idxarr(aidarr_str, i) 
+             idxarr_str = alib.comb_arr_to_str("_", idxarr)
+          %>
+
+         <%= link_to "Show annotations for significant wells", 
+                                        :action => "goto_result_2_page", 
+                                        :func => @func,
+                                        :title => @title, 
+                                        :aidstr_list => @aidstr_list,
+                                        :aidstr_sel  => @aidstr_sel,
+                                        :cutoff => @cutoff,
+                                        :outfname => @outfname,
+                                        :subfunc => "ann",
+                                        :subtitle => "Annotation",
+                                        :idxstr => i
+                                        %><br>
+          <%= link_to 'Show scores for individual replicate', 
+                                        :action => "goto_result_2_page", 
+                                        :func => @func,
+                                        :title => @title, 
+                                        :aidstr_list => @aidstr_list,
+                                        :aidstr_sel  => @aidstr_sel,
+                                        :cutoff => @cutoff,
+                                        :outfname => @outfname,
+                                        :subfunc => "score",
+                                        :subtitle => @func + " of Individual Replicate",
+                                        :idxstr => idxarr_str
+                                        %><br>
+                                        
+         <% if ((@func == "Bscore") || (@func == "zscore")) %>
+              <%= link_to 'Show heatmaps for individual replicate', 
+                                        :action => "goto_result_2_page", 
+                                        :func => @func,
+                                        :title => @title, 
+                                        :aidstr_list => @aidstr_list,
+                                        :aidstr_sel  => @aidstr_sel,
+                                        :cutoff => @cutoff,
+                                        :outfname => @outfname,
+                                        :subfunc => "hmap",
+                                        :subtitle => @func + " Heatmap of Individual Replicate",
+                                        :idxstr => idxarr_str
+                                        %><br>
+          <% link_to 'Download scores (including average scores and individual replicate scores)', 
+                                        :action => "download_link_onclick", 
+                                        :func => @func,
+                                        :outfname => @outfname,
+                                        :idxstr => idxarr_str
+                                        %>
+         <% end %>
+
+         <table><tr>
+            <% if ($genv == "development") %>
+                <td><%= image_tag(rlib.get_pic(@func, "plot", aidarr_str)) %></td> 
+                <td><%= image_tag(rlib.get_pic(@func, "hist", aidarr_str)) %></td> 
+            <% else %>               
+                <% fname_plot = rlib.get_pdf(@func, "plot", aidarr_str) %>
+                <% fname_hist = rlib.get_pdf(@func, "hist", aidarr_str) %>
+                <td><%=link_to "Plot",      :action => "send_image_file", :fname => fname_plot %>
+                <td></td>
+                <td><%=link_to "Histogram", :action => "send_image_file", :fname => fname_hist %>
+            <% end %>
+         </tr></table><br><br>
+      <% else  %>
+         <%= hlib.show_table_head(aidarr_str) %>
+         <%= hlib.show_error(error) %>
+      <% end  %>
+   <% end %>
+</form> 
+
+<hr width=100%, align="left">

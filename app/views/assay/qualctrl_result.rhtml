@@ -1,0 +1,63 @@
+<% hlib = HtmlLib.new %>
+<% rlib = RLib.new %>
+<% sarlib = SqlAssayresultLib.new %>
+<%= link_to "Back", :controller => "assay", :action => 'goto_list_page', 
+                                            :func => @func, 
+                                            :title => @title,
+                                            :aidstr_list=> @aidstr_list
+                                           %>
+<%= hlib.show_page_head(@title, session[:cas_user]) %>
+
+<form action='<%= url_for(:action => "qc_submit_button_onclick", 
+                                       :func => @func, 
+                                       :title => @title,
+                                       :aidstr_list=> @aidstr_list,
+                                       :aidstr_sel=> @aidstr_sel )
+                                       %>' method='POST' enctype="multipart/form-data">
+                                       
+   <% aidarr = @aidstr_sel.split("_") %>
+   <% if (aidarr.length > 0) %>
+        <% aid0 = aidarr[0] %>
+        <% ararr = sarlib.list(aid0) %>
+        <%= hlib.show_qc_table(aid0, ararr) %>
+   <% end %>
+   The first assay data is shown. <br><br>
+
+
+
+   <% if ((@done == 0) && (aidarr.length > 0))%>
+       <table>
+          <tr>
+             <%= hlib.cbox_col("cbox_applyall", "1") %>
+             <%= hlib.textb_col("Apply the identification to the assays below too: ") %>
+          </tr>
+       </table>
+       
+       <table border=1>
+           <% bgclr = hlib.get_bgcolor(2) %>
+           <tr bgcolor=<%=bgclr%> >
+              <%= hlib.textb_col("Experiment") %>
+              <%= hlib.textb_col("Replicate") %>
+           </tr>
+           <% i = 0
+              for aid in aidarr 
+                 bgclr = hlib.get_bgcolor(i%2) 
+                 if (aid != aid0) %>
+                     <tr bgcolor=<%=bgclr %> >
+                         <% (aidtmp, anm, ridstr) = rlib.get_aname_rid(aid.to_s) %>
+                         <%= hlib.text_col(anm)%>
+                         <%= hlib.text_col(ridstr.to_s)%>
+                    </tr>
+                  <% end %>
+                <% i = i + 1 %>
+             <% end %>
+       </table><br><br>
+       <%= hlib.submit_button("Submit")%>
+   <% elsif (@done == 1) %>
+       <%= hlib.show_log("Identify Successfully")%>
+   <% end %>
+
+</form>
+
+<hr width=100%, align="left">
+	

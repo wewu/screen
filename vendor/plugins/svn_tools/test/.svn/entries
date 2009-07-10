@@ -1,0 +1,41 @@
+8
+
+dir
+980
+https://svn.itmat.upenn.edu/repos/UPAT/RailsProjects/screen/trunk/vendor/plugins/svn_tools/test
+https://svn.itmat.upenn.edu/repos
+
+
+
+2007-08-20T22:22:25.109276Z
+554
+wewu
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+d74534d3-2afb-0310-9114-d12de1313ae5
+
+svn_test.rb
+file
+
+
+
+
+2007-08-20T22:32:08.000000Z
+12d667fa4fd82ea7c9a191066466ec4d
+2007-08-20T22:22:25.109276Z
+554
+wewu
+has-props
+

@@ -1,0 +1,27 @@
+<% hlib = HtmlLib.new %>
+<% sarlib = SqlAssayresultLib.new %>
+<%= link_to "Back", :controller => "assay", :action => 'goto_list_page', 
+                                            :func => @func, 
+                                            :title => @title,
+                                            :aidstr_list=> @aidstr_list
+                                           %>
+<%= hlib.show_page_head(@title) %>
+
+<form action='<%= url_for(:action => "qc_submit_button_onclick", 
+                                       :func => @func, 
+                                       :title => @title,
+                                       :aidstr_list=> @aidstr_list,
+                                       :aidstr_sel=> @aidstr_sel )
+                                       %>' method='POST' enctype="multipart/form-data">
+                                       
+   <% aidarr = @aidstr_sel.split("_") %>
+   <% for aid in aidarr %>
+       <% ararr = sarlib.list(aid) %>
+       <%= hlib.show_qc_table(aid, ararr) %>
+   <% end %>
+
+<%= hlib.submit_button("Submit")%>
+</form>
+
+<hr width=100%, align="left">
+	

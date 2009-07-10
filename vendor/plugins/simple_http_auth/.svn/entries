@@ -1,0 +1,82 @@
+8
+
+dir
+13
+http://svn.codahale.com/simple_http_auth
+http://svn.codahale.com/simple_http_auth
+
+
+
+2006-10-08T20:11:37.740564Z
+13
+coda
+has-props
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+ab2ce51f-6613-0410-97dc-f33f09fd5bc1
+
+test
+dir
+
+Rakefile
+file
+
+
+
+
+2007-11-14T15:35:28.000000Z
+05dbca8f269c62fe934cdfab53c5253d
+2006-05-11T19:15:49.526501Z
+4
+coda
+
+init.rb
+file
+
+
+
+
+2007-11-14T15:35:28.000000Z
+fdd6248114a6765d41c555bc5843d9b9
+2006-05-10T17:56:21.987353Z
+2
+coda
+
+lib
+dir
+
+MIT-LICENSE
+file
+
+
+
+
+2007-11-14T15:35:28.000000Z
+331bbceddc6dc38de42adf16de128f9b
+2006-05-10T17:22:30.586068Z
+1
+coda
+
+README
+file
+
+
+
+
+2007-11-14T15:35:28.000000Z
+bae0de6606b3fc8c11c57574f090be1e
+2006-06-17T02:44:41.607498Z
+8
+coda
+

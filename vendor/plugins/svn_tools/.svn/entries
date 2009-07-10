@@ -1,0 +1,63 @@
+8
+
+dir
+980
+https://svn.itmat.upenn.edu/repos/UPAT/RailsProjects/screen/trunk/vendor/plugins/svn_tools
+https://svn.itmat.upenn.edu/repos
+
+
+
+2007-08-20T22:22:25.109276Z
+554
+wewu
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+d74534d3-2afb-0310-9114-d12de1313ae5
+
+test
+dir
+
+Rakefile
+file
+
+
+
+
+2007-08-20T22:32:08.000000Z
+2fe3d30a56a69fc23c341eb8ae544a17
+2007-08-20T22:22:25.109276Z
+554
+wewu
+has-props
+
+tasks
+dir
+
+lib
+dir
+
+README
+file
+
+
+
+
+2007-08-20T22:32:08.000000Z
+75dbbd35926de1f37dbf75b378ed1b85
+2007-08-20T22:22:25.109276Z
+554
+wewu
+has-props
+
